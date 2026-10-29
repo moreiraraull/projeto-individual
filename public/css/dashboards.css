@@ -2,6 +2,13 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+:root {
+  --cor-primaria: #B03274;
+  --cor-secundaria: #F5F5F5;
+  --cor-terciaria: #121212;
+  --cor-detalhe: #8F275E;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -15,7 +22,7 @@ body {
 
 .dash-right .avisos {
   width: 100%;
-  color: rgb(216, 216, 216);
+  color: var(--cor-secundaria);
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -44,8 +51,8 @@ body {
 
 .dash-right .avisos .div-form textarea {
   width: 95%;
-  border: 3px solid #e6005a;
-  background-color: white;
+  border: 3px solid var(--cor-primaria);
+  background-color: var(--cor-secundaria);
   border-radius: 5px;
 }
 
@@ -57,8 +64,8 @@ body {
   font-weight: 600;
   font-size: 18px;
   padding: 10px 15px;
-  color: white;
-  background-color: #e6005a;
+  color: var(--cor-secundaria);
+  background-color: var(--cor-primaria);
   width: 120px;
 }
 
@@ -70,8 +77,8 @@ body {
   font-weight: 600;
   font-size: 14px;
   padding: 5px 8px;
-  color: white;
-  background-color: #e6005a;
+  color: var(--cor-secundaria);
+  background-color: var(--cor-primaria);
   width: 80px;
 }
 
@@ -82,7 +89,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  border-bottom: 3px solid #e6005a;
+  border-bottom: 3px solid var(--cor-detalhe);
   padding: 20px;
 }
 
@@ -95,7 +102,7 @@ body {
 }
 
 .div-results .feed-container {
-  background-color: #212124;
+  background-color: var(--cor-terciaria);
   border-radius: 5px;
   margin-bottom: 80px;
 }
@@ -112,7 +119,7 @@ body {
 /* pagina graficos */
 
 .dash-header {
-  background-color: #212124;
+  background-color: var(--cor-terciaria);
 }
 
 .dash {
@@ -120,7 +127,7 @@ body {
   position: relative;
   top: 0;
   left: 20%;
-  background-color: #161618;
+  background-color: var(--cor-terciaria);
   height: 100vh;
   overflow: auto;
 }
@@ -132,11 +139,11 @@ body {
   width: 70%;
   margin: auto;
   margin-top: 10px;
-  background-color: #212124;
+  background-color: var(--cor-terciaria);
 }
 
 .area-parametros-alerta .titulo-legenda {
-  color: white;
+  color: var(--cor-secundaria);
   font-weight: 600;
   width: fit-content;
   margin: 10px 20px;
@@ -193,7 +200,7 @@ body {
   height: 450px;
   width: 100%;
   align-items: center;
-  color: white;
+  color: var(--cor-secundaria);
 }
 
 .card-aquario {
@@ -206,7 +213,7 @@ body {
   /* text-align: center; */
   height: 180px;
   /* justify-content: right; */
-  background-color: #212124;
+  background-color: var(--cor-terciaria);
   font-size: 20px;
 }
 
@@ -239,7 +246,7 @@ body {
 
 .cards h1 {
   font-size: 22px;
-  border-bottom: solid white 1px;
+  border-bottom: solid var(--cor-secundaria) 1px;
   text-align: left;
   font-weight: lighter;
   margin: 20px;
@@ -274,9 +281,13 @@ body {
 }
 
 .tituloGraficos {
-  color: rgb(216, 216, 216);
+  color: var(--cor-secundaria);
   display: flex;
   justify-content: center;
+}
+
+.titulo-destaque {
+  color: var(--cor-primaria);
 }
 
 .btn-chart {
@@ -285,21 +296,21 @@ body {
   font-weight: 600;
   font-size: 18px;
   padding: 10px 15px;
-  color: #e6005a;
-  background-color: white;
+  color: var(--cor-primaria);
+  background-color: var(--cor-secundaria);
   margin: 5px;
   border-radius: 3px;
   cursor: pointer
 }
 
 .btn-pink {
-  color: white;
-  background-color: #e6005a;
+  color: var(--cor-secundaria);
+  background-color: var(--cor-primaria);
 }
 
 .btn-white {
-  color: #e6005a;
-  background-color: white;
+  color: var(--cor-primaria);
+  background-color: var(--cor-secundaria);
 
 }
 
@@ -333,7 +344,7 @@ canvas {
 
 .header-left a {
   text-decoration: none;
-  color: white;
+  color: var(--cor-secundaria);
 }
 
 .header-left {
@@ -347,15 +358,15 @@ canvas {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  border-right: 3px solid #32b9cd;
-  background-color: #212124;
+  border-right: 3px solid var(--cor-detalhe);
+  background-color: var(--cor-terciaria);
 }
 
 .dash-right {
   display: flex;
   width: 70%;
   height: fit-content;
-  background-color: #161618;
+  background-color: var(--cor-terciaria);
   position: relative;
   top: 0;
   left: 25%;
@@ -364,7 +375,7 @@ canvas {
 }
 
 .header-left h1 {
-  color: #32b9cd;
+  color: var(--cor-primaria);
 }
 
 .hello {
@@ -374,7 +385,7 @@ canvas {
 }
 
 .hello h3 {
-  color: #e3b062;
+  color: var(--cor-secundaria);
   font-weight: 300;
   font-size: 1.2rem;
 }
@@ -385,8 +396,8 @@ canvas {
 
 .btn-nav {
   width: 40%;
-  color: white;
-  background-color: #e6005a;
+  color: var(--cor-secundaria);
+  background-color: var(--cor-primaria);
   border-radius: 5px;
   text-align: center;
   padding: 2% 5%;
@@ -394,15 +405,15 @@ canvas {
 
 .btn-nav-white {
   width: 40%;
-  background-color: white;
-  border: 3px solid #e6005a;
+  background-color: var(--cor-secundaria);
+  border: 3px solid var(--cor-primaria);
   border-radius: 5px;
   text-align: center;
   padding: 2% 5%;
 }
 
 .btn-nav-white h3 {
-  color: #e6005a;
+  color: var(--cor-primaria);
   padding: 0;
   margin: 0;
 }
@@ -417,8 +428,8 @@ canvas {
   margin: 0;
   padding: 0;
   width: 20%;
-  background-color: #32b9cd;
-  color: white;
+  background-color: var(--cor-detalhe);
+  color: var(--cor-secundaria);
   border-radius: 10px;
   text-align: center;
   padding: 10px 15px;

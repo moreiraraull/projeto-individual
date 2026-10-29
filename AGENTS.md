@@ -12,7 +12,9 @@ Este projeto é um site para fins educacionais, focando no meu aprendizado, ele 
 
 ## Comandos
 
-Informe os comandos necessários para trabalhar com o projeto.
+Instalar dependencias: npm install
+Iniciar o projeto: npm start
+Interromper a execução: ctrl + c
 
 ## Arquitetura
 ## Estrutura das principais pastas:
