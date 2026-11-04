@@ -239,18 +239,6 @@ body {
   width: 50px;
 }
 
-/* SIMULADOR */
-
-.simulador {
-  color: var(--cor-secundaria);
-}
-
-.simulador .container {
-  flex-direction: column;
-  overflow: scroll; 
-  height: var(--tamanho-simulador);
-}
-
 /* ALERTA */
 
 #alerta {
