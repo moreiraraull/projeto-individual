@@ -28,6 +28,7 @@ body {
 .header {
   height: var(--tamanho-header);
   border-bottom: 2px solid var(--cor-detalhe);
+  color: var(--cor-secundaria);
 }
 
 .header .container {
