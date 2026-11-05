@@ -14,10 +14,11 @@ CREATE TABLE usuario (
 -- Tabela música
 CREATE TABLE musica (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-    titulo VARCHAR(60),
-    artista VARCHAR(60),
-    album VARCHAR(60),
-    instrumento VARCHAR(45)
+    id_spotify VARCHAR(100) UNIQUE, -- Cada ID de música do spotify é unico
+    titulo VARCHAR(100),
+    artista VARCHAR(100),
+    album VARCHAR(100),
+    capa_url VARCHAR(255) -- Salvar a URL da capa
 );
 
 -- Tabela intermediária Músicas x Usuário
@@ -27,7 +28,10 @@ CREATE TABLE repertorio (
     FOREIGN KEY (fk_usuario) REFERENCES usuario(id),
     fk_musica INT,
     FOREIGN KEY (fk_musica) REFERENCES musica(id),
-    PRIMARY KEY  (fk_id, fk_usuario)
+    PRIMARY KEY  (id, fk_usuario),
+    instrumento VARCHAR(45),
+    progresso TINYINT,
+    CONSTRAINT chkProgresso CHECK(progresso IN (1, 2, 3))
 );
 
 /*
@@ -38,4 +42,12 @@ CREATE USER 'user_insert'@'localhost' IDENTIFIED BY 'urubu100';
 GRANT INSERT ON noiseforge.* TO 'user_insert'@'localhost';
 
 GRANT SELECT ON noiseforge.* TO 'user_insert'@'localhost';
+
+GRANT UPDATE ON noiseforge.* TO 'user_insert'@'localhost';
+
+GRANT DELETE ON noiseforge.* TO 'user_insert'@'localhost';
 */
+
+SELECT * FROM usuario;
+
+-- DROP DATABASE noiseforge;
