@@ -48,6 +48,6 @@ GRANT UPDATE ON noiseforge.* TO 'user_insert'@'localhost';
 GRANT DELETE ON noiseforge.* TO 'user_insert'@'localhost';
 */
 
-SELECT * FROM usuario;
+SELECT * FROM usuario;     
 
 -- DROP DATABASE noiseforge;

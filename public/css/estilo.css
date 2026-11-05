@@ -23,13 +23,22 @@ body {
   width: 80%;
   margin: auto;
 }
-
 .header {
   height: var(--tamanho-header);
   border-bottom: 2px solid var(--cor-detalhe);
   color: var(--cor-secundaria);
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  height: --tana;
+  width: auto;
+}
 .header .container {
   justify-content: space-between;
   align-items: center;
@@ -62,6 +71,7 @@ body {
 
 .header h1 {
   margin: 0;
+  font-weight: 400;
 }
 
 /* BANNER */
