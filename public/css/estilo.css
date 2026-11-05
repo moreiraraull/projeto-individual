@@ -13,8 +13,7 @@ body {
   --cor-terciaria: #121212;
   --cor-detalhe: #8F275E;
   --tamanho-header: 80px;
-  --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-  --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+  --tamanho-banner: calc(90vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-footer: 65px;
 }
@@ -70,7 +69,7 @@ body {
 .banner {
   height: var(--tamanho-banner);
   color: var(--cor-secundaria);
-  background-image: url('../assets/imgs/bg-jelly-fish-para-home.png');
+  background-image: url('../assets/imgs/GifHome.gif');
   background-size: cover;
 }
 
@@ -78,13 +77,15 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
+  justify-content: flex-start;
 }
 
 .banner .container p {
-  width: 50%;
+  width: 30%;
   margin: 0;
   padding: 0;
   font-size: 36px;
+  
 }
 
 .banner .container span {
@@ -94,16 +95,24 @@ body {
 /* MISSÃO VISÃO VALORES */
 
 .social {
-  background-color: var(--cor-secundaria);
+  background-color: #fff;
   display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.25rem;
 }
 
 .social .container {
   justify-content: center;
 }
 
+.social h1{
+  align-self: center;
+}
+
 .box img {
-  width: 170px;
+  width: 18.75rem;
+  height: 18.75rem;
+  object-fit: cover;
 }
 
 .social .container .boxes {
@@ -115,12 +124,53 @@ body {
 
 .social p {
   text-align: center;
+  width: 18.75rem;
 }
 
 .box {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* SOBRE MIM */
+.sobre {
+  background-color: var(--cor-terciaria);
+  color: var(--cor-secundaria);  
+}
+
+.sobre .container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1.25rem;
+  gap: 8rem;
+  margin: 0 auto;
+  height: fit-content;
+  
+}
+
+.texto{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+}
+
+.sobre p {
+  width: 40.5rem;
+  font-size: 1.2rem;
+  line-height: 1.5; /* Melhora a leitura das linhas */
+}
+
+.sobre img{
+  justify-content: flex-end;
+}
+
+.imagem{
+  display: flex;
+  justify-content: flex-end;
+  width: 40%; /* Dá um espaço adequado para a imagem respirar ao lado do texto */
 }
 
 /* FOOTER */
@@ -146,8 +196,15 @@ body {
 
 .login {
   height: var(--tamanho-login);
-  background-image: url('../assets/imgs/fundoLogin.png');
   background-size: cover;
+}
+
+.img_cadastro {
+  background-image: url('../assets/imgs/fundoCadastro.png');
+}
+
+.img_login {
+  background-image: url('../assets/imgs/fundoLogin.png');
 }
 
 .login .container {
