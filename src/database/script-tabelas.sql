@@ -50,6 +50,23 @@ GRANT UPDATE ON noiseforge.* TO 'user_insert'@'localhost';
 GRANT DELETE ON noiseforge.* TO 'user_insert'@'localhost';
 */
 
-SELECT * FROM usuario;     
+SELECT * FROM usuario;
 
 -- DROP DATABASE noiseforge;
+
+INSERT INTO musica (titulo, artista, album) VALUES
+('Scream of the Butterfly', 'Acid Bath', 'When the Kite String Pops');
+
+SELECT * FROM musica;
+
+INSERT INTO repertorio (fk_usuario, fk_musica, instrumento) VALUES
+(1, 1, 'Baixo');
+
+SELECT nome,
+r.instrumento,
+m.titulo AS musica
+FROM usuario
+JOIN repertorio as r
+ON r.fk_usuario = usuario.id
+JOIN musica AS m
+ON m.id = r.fk_musica;
