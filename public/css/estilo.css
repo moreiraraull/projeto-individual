@@ -36,7 +36,7 @@ body {
 }
 
 .logo img {
-  height: --tana;
+  height: var(--tamanho-header);
   width: auto;
 }
 .header .container {
@@ -358,7 +358,6 @@ body {
 }
 
 /* FORMULARIO */
-
 .alerta_erro{
   display: flex;
   justify-content: flex-end;

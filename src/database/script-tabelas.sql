@@ -31,7 +31,9 @@ CREATE TABLE repertorio (
     PRIMARY KEY  (id, fk_usuario),
     instrumento VARCHAR(45),
     progresso TINYINT,
-    CONSTRAINT chkProgresso CHECK(progresso IN (1, 2, 3))
+    CONSTRAINT chkProgresso CHECK(progresso IN (1, 2, 3)),
+    data_inserido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 /*

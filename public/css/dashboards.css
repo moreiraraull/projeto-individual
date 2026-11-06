@@ -356,10 +356,12 @@ canvas {
   width: 20%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  gap: 3rem;
+  padding-top: 40px;
   align-items: center;
   border-right: 3px solid var(--cor-detalhe);
-  background-color: var(--cor-terciaria);
+  background-color: #1A1A1A;
 }
 
 .dash-right {
@@ -378,38 +380,33 @@ canvas {
   color: var(--cor-primaria);
 }
 
-.hello {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+.icon{
+  width: 1.9rem;
+  height: 1.9rem;
 }
 
-.hello h3 {
-  color: var(--cor-secundaria);
-  font-weight: 300;
-  font-size: 1.2rem;
-}
-
-.hello h3 span {
-  font-weight: 800;
-}
 
 .btn-nav {
-  width: 40%;
+  width: 60%;
   color: var(--cor-secundaria);
   background-color: var(--cor-primaria);
   border-radius: 5px;
   text-align: center;
   padding: 2% 5%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
 }
 
 .btn-nav-white {
-  width: 40%;
-  background-color: var(--cor-secundaria);
-  border: 3px solid var(--cor-primaria);
+  width: 60%;
+  background-color: var(--cor-terciaria);
   border-radius: 5px;
   text-align: center;
+  align-items: center;
   padding: 2% 5%;
+  height: 42px;
+  display: flex;
 }
 
 .btn-nav-white h3 {
@@ -425,14 +422,32 @@ canvas {
 }
 
 .btn-logout {
-  margin: 0;
-  padding: 0;
-  width: 20%;
   background-color: var(--cor-detalhe);
-  color: var(--cor-secundaria);
-  border-radius: 10px;
+    color: var(--cor-secundaria);
+    border-radius: 10px;
+    text-align: center;
+    padding: 8px 15px; 
+    cursor: pointer;
+}
+
+.profile {
+  width: 90%;
+  background-color: var(--cor-terciaria);
+  border-radius: 5px;
   text-align: center;
-  padding: 10px 15px;
-  margin-bottom: 100px;
-  cursor: pointer;
+  align-items: center;
+  padding: 2% 5%;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between; /* Substitui o 'gap: 30%' para separar os itens perfeitamente nas pontas */
+  color: var(--cor-primaria);
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-top: auto; /* Esta é a mágica que empurra o card todo para baixo */
+  margin-bottom: 30px; /* Descola o card do limite inferior da tela */
+}
+.info{
+  display: flex;
+    align-items: center;
+    gap: 10px; /* Espaço entre o ícone e o texto */
 }
