@@ -206,27 +206,50 @@ body {
 
 .card-musica {
   margin: 2%;
-  min-width: 40%;
-  max-width: 50%;
   width: fit-content;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   height: auto;
   background-color: var(--cor-terciaria);
   font-size: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
+  border: 2px solid var(--cor-detalhe);
+  border-radius: 12px;
+  gap: 1.3rem;
+  overflow: hidden; /* Impede a imagem de vazar do card */
+}
+
+.capa-musica img{
+  display: flex;
+  justify-content: flex-start;
+  height: 100%;
+  width: 9.3rem;
+  object-fit: cover; /* impede que a imagem seja distorcida */
+}
+
+.info-musica {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.etiquetas-musica {
+  border-radius: 6px;
+  padding: 4px;
+  display: flex;
+  gap: 5px;
 }
 
 .card-musica h1 {
   width: fit-content;
 }
 
-.card-musica p {
+.card-musica span{
   margin: 0;
   font-size: 18px;
   font-weight: lighter;
   text-align: left;
+  background-color: #2A2A2A;
 }
 
 .desc-musica {
@@ -237,80 +260,25 @@ body {
   padding: 0 20px 20px;
 }
 
-.progresso-musica {
-  font-size: 24px !important;
-  font-weight: 700 !important;
-}
-
 .title-musica {
   width: 100%;
 }
 
 
 .cards h1 {
-  font-size: 22px;
+  font-size: 1.37rem;
   border-bottom: solid var(--cor-secundaria) 1px;
   text-align: left;
   font-weight: lighter;
   margin: 20px;
 }
 
-.sem-repertorio {
-  width: 100%;
-  text-align: center;
-  font-size: 20px;
-  margin-top: 40px;
-}
-
-.btn-musica {
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border: 0;
-  font-weight: 600;
-  font-size: 18px;
-  padding: 10px 15px;
-  margin: 5px;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.btns-dash {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 30px;
-  flex-wrap: wrap;
-  padding: 0 20% 0 20%;
-}
-
-.repertorio-detalhes {
-  width: 70%;
-  margin: auto;
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #181818;
-  border-radius: 8px;
-  color: var(--cor-secundaria);
-}
-
-.tituloRepertorio {
-  color: var(--cor-secundaria);
-  display: flex;
-  justify-content: center;
-}
-
-.titulo-destaque {
-  color: var(--cor-primaria);
-}
-
-.btn-pink {
-  color: var(--cor-secundaria);
-  background-color: var(--cor-primaria);
-}
-
-.btn-white {
-  color: var(--cor-primaria);
-  background-color: var(--cor-secundaria);
-
+.cards h2 {
+  font-size: 1.2rem;
+  border-bottom: solid var(--cor-secundaria) 1px;
+  text-align: left;
+  font-weight: lighter;
+  margin: 20px;
 }
 
 .label-captura {
@@ -438,15 +406,15 @@ canvas {
   padding: 2% 5%;
   height: fit-content;
   display: flex;
-  justify-content: space-between; /* Substitui o 'gap: 30%' para separar os itens perfeitamente nas pontas */
+  justify-content: space-between;
   color: var(--cor-primaria);
   font-size: 1.2rem;
   font-weight: 800;
-  margin-top: auto; /* Esta é a mágica que empurra o card todo para baixo */
-  margin-bottom: 30px; /* Descola o card do limite inferior da tela */
+  margin-top: auto; 
+  margin-bottom: 30px;
 }
 .info{
   display: flex;
     align-items: center;
-    gap: 10px; /* Espaço entre o ícone e o texto */
+    gap: 10px;
 }

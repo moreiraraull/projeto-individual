@@ -20,7 +20,7 @@
         rel="stylesheet">
 </head>
 
-<body onload="validarSessao(), exibirAquarios(),  atualizacaoPeriodica()">
+<body onload="validarSessao(), buscarRepertorioPorUsuario(),  atualizacaoPeriodica()">
 
     <div class="janela">
 
@@ -57,45 +57,27 @@
         <div class="dash">
             <div id="alerta">
             </div>
-            <div class="area-parametros-alerta">
-                <p class="titulo-legenda">
-                    Legenda - Parâmetros para Alertas
-                </p>
-                <div class="parametros-alerta">
-                    <div class="item-regua perigo-frio">
-                        <p>Perigo</p>
-                        <p>&lt;=5°C</p>
-                    </div>
-                    <div class="item-regua alerta-frio">
-                        <p>Alerta</p>
-                        <p>&lt;=10°C</p>
-                    </div>
-                    <div class="item-regua ideal">
-                        <p>Ideal</p>
-                        <p>20°C</p>
-                    </div>
-                    <div class="item-regua alerta-quente">
-                        <p>Alerta</p>
-                        <p>&gt;=22°C</p>
-                    </div>
-                    <div class="item-regua perigo-quente">
-                        <p>Perigo</p>
-                        <p>&gt;=23°C</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cards" id="cardAquarios">
+        
+            <div class="cards" id="cardRepertorio">
                 <!-- Placeholder do card -->
-                <div class="card-aquario">
-                        <div class="title-aquario">
-                            <h1>${item.descricao}</h1>
+                <div class="card-musica">
+                        <div class="capa-musica">
+                            <!-- o src vai pesquisar a capa pela url armazenada no banco de dados -->
+                            <img src="${item.capa_url}" alt="Capa da música" id="capa_musica_${item.id}">
                         </div>
-                        <div class="desc-aquario">
-                        <div class="temperatura">
-                            <p id="temp_aquario_${item.id}">-°C</p>
+                        <div class="info-musica">
+                            <div class="title-musica">
+                                <h1>${item.musica}</h1>
+                                <h2>${item.artista}</h2>
+                            </div>
+                            <div class="etiquetas-musica">
+                                <span>${item.instrumento}</span>
+                                <span>${item.progresso}</span>
+                            </div>
+                                                <!-- Botão para aumentar o progresso -->
+                         <button class="btn-musica" id="progresso">Avançar para próximo nivel</button>
                         </div>
-                        <div class="cor-alerta" id="card_${item.id}"></div>
+                        
                     </div>
                     </div>
             </div>
@@ -108,19 +90,27 @@
 
 <script>
 
-    function exibirAquarios() {
-        JSON.parse(sessionStorage.AQUARIOS).forEach(item => {
-            document.getElementById("cardAquarios").innerHTML += `
-                    <div class="card-aquario">
-                        <div class="title-aquario">
-                            <h1>${item.descricao}</h1>
+    function buscarRepertorioPorUsuario() {
+        JSON.parse(sessionStorage.REPERTORIO).forEach(item => {
+            document.getElementById("cardRepertorio").innerHTML += `
+                    <div class="card-musica">
+                        <div class="capa-musica">
+                            <!-- o src vai pesquisar a capa pela url armazenada no banco de dados -->
+                            <img src="${item.capa_url}" alt="Capa da música" id="capa_musica_${item.id}">
                         </div>
-                        <div class="desc-aquario">
-                        <div class="temperatura">
-                            <p id="temp_aquario_${item.id}">-°C</p>
+                        <div class="info-musica">
+                            <div class="title-musica">
+                                <h1>${item.musica}</h1>
+                                <h2>${item.artista}</h2>
+                            </div>
+                            <div class="etiquetas-musica">
+                                <span>${item.instrumento}</span>
+                                <span>${item.progresso}</span>
+                            </div>
+                                                <!-- Botão para aumentar o progresso -->
+                         <button class="btn-musica" id="progresso">Avançar para próximo nivel</button>
                         </div>
-                        <div class="cor-alerta" id="card_${item.id}"></div>
-                    </div>
+                        
                     </div>
                     `
         });
