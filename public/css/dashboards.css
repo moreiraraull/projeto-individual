@@ -44,10 +44,11 @@ body {
   width: 95%;
 }
 
-.dash-right .avisos .div-form input {
+.dash-right .avisos .div-form input{
   width: 95%;
   border-radius: 5px;
 }
+
 
 .dash-right .avisos .div-form textarea {
   width: 95%;
@@ -395,6 +396,56 @@ canvas {
     text-align: center;
     padding: 8px 15px; 
     cursor: pointer;
+}
+
+.btn-musica {
+  width: 98%;
+  color: var(--cor-secundaria);
+  background-color: var(--cor-primaria);
+  border-radius: 5px;
+  text-align: center;
+  padding: 2% 5%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  font-size: 1.1rem;
+
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.btn-adicionar {
+  width: 22.5rem;
+  color: var(--cor-secundaria);
+  background-color: var(--cor-primaria);
+  border-radius: 5px;
+  text-align: center;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  font-size: 1.1rem;
+  gap: 15px; 
+  cursor: pointer;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 100; /* Garante que o botão fique sempre por cima das músicas ao rolar a página */
+}
+
+.container-busca {
+  padding: 20px;
+}
+
+#ipt_busca { 
+  width: 90%;
+}
+
+.div-resultados {
+  margin-top: 1rem;
 }
 
 .profile {

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NoiseForge | Avisos</title>
+    <title>NoiseForge | Adicionar Música</title>
 
     <link rel="stylesheet" href="./../css/dashboards.css">
     <link rel="stylesheet" href="./../css/estilo.css" />
@@ -24,67 +24,72 @@
     <div class="janela">
 
 
-        <div class="header-left">
+        <div class="header-left dash-header">
 
-            <h1>AquaTech</h1>
-
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="cards.html">
-                    <h3>Aquários e Terrários</h3>
-                </a>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./dashboard.html">
-                    <h3>Gráficos</h3>
-                </a>
-            </div>
+            <h1>Dashboard:</h1>
 
             <div class="btn-nav">
-                <h3>Mural de Avisos</h3>
+                <img src="../assets/icon/musicas.svg" class="icon">
+                <h3>Músicas Cadastradas</h3>
             </div>
 
-            <div class="btn-logout" onclick="limparSessao()">
+            
+                <a href="./dashboard.html" class="btn-nav-white">
+                    <img src="../assets/icon/chart.svg" class="icon">
+                    <h3>Gráficos de navegação</h3>
+                </a>
+
+                <div class="profile">
+                    <div class="info">
+                        <img src="../assets/icon/profile.svg" class="icon">
+                                        <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+                    </div>
+                <!-- Botão de sair -->
+                <div class="btn-logout" onclick="limparSessao()">
                 <h3>Sair</h3>
+                </div>
             </div>
+
+            
 
         </div>
 
         <div class="dash-right">
-
-
             <div class="avisos">
                 <div id="alerta">
                 </div>
                 <div class="container">
-                    <h1>Publicar um aviso</h1>
+                    <h1>Cadastrar nova música</h1>
                     <div class="div-form">
                         <form id="form_postagem" method="post" onsubmit="return publicar()">
-                            <label>
-                                Título:
-                                <br>
-                                <input name="titulo" id="titulo" maxlength="100" type="text">
-                            </label>
+                            <div class="container-busca">
+                                <label for="ipt_busca">
+                                    Insira o nome da música:
+                                    <br>
+                                    <input name="ipt_busca" id="ipt_busca" maxlength="100" type="text">
+                                </label>
+                                <button onclick="buscarMusica()" type="button">Buscar</button>
+                                <div id="div_resultados"></div>
+                            </div>
                             <br>
                             <br>
-                            <label>
-                                Descrição (máximo de 250 caracteres):
-                                <br>
-                                <textarea name="descricao" id="textarea_descricao" maxlength="250" rows="5"></textarea>
-                            </label>
-                            <br>
-                            <br>
-                            <button>Enviar</button>
+                            <!-- Os inputs exibem os dados da música para o usuário -->
+                        <input type="text" id="ipt_id_spotify" disabled>
+                        <input type="text" id="ipt_titulo_musica" disabled>
+                        <input type="text" id="ipt_artista_musica" disabled>
+                        <input type="text" id="ipt_capa_musica" disabled>
+
+                        <label style="color: #F5F5F5;">Música selecionada: <span                id="span_musica_selecionada" style="color: #D62872;">Nenhuma</span></label>
+                        <br><br>
+                            <select name="slct_instrumento" id="slct_instrumento">
+                                <option>Guitarra</option>
+                                <option>Baixo</option>
+                                <option>Violão</option>
+                                <option>Piano</option>
+                                <option>Canto</option>
+                            </select>
+                            <button onclick="cadastrar()">Cadastrar</button>
                         </form>
-                    </div>
-                    <h1>Mural de Avisos</h1>
-                    <div class="div-results">
-                        <div id="feed_container" class="feed-container">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -104,6 +109,45 @@
 
     function limparFormulario() {
         document.getElementById("form_postagem").reset();
+    }
+    // Busca a música no Spotify e exibe os resultados na tela
+    function buscarMusica() {
+        var termo = ipt_busca.value;
+        var div_resultados = document.getElementById("div_resultados");
+        
+        if (termo == "") {
+            alert("Digite o nome de uma música!");
+        }
+
+        div_resultados.innerHTML = "Procurando músicas...";
+
+        fetch("/spotify/pesquisar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ termo: termo }) // Envia a busca do input no corpo 
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (dados) {
+                    div_resultados.innerHTML = ""; 
+                    var musicas = dados.tracks.items;
+
+                    // enquanto houver músicas, vai preenchendo os cards
+                    for (var i = 0; i < musicas.length; i++) {
+                        var musica = musicas[i];
+                        div_resultados.innerHTML += `
+                            <div onclick="selecionarMusica('${musica.id}', '${musica.name}', '${musica.artists[0].name}', '${musica.album.images[0].url}')" 
+                                 style="border-bottom: 1px solid #333; padding: 10px 0; cursor: pointer; display: flex; gap: 10px;">
+                                <img src="${musica.album.images[0].url}" width="50">
+                                <div>
+                                    <strong>${musica.name}</strong><br>
+                                    <small>${musica.artists[0].name}</small>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+            }
+        });
     }
 
     function publicar() {

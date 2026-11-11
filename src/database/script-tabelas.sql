@@ -55,13 +55,20 @@ SELECT * FROM usuario;
 -- DROP DATABASE noiseforge;
 
 INSERT INTO musica (titulo, artista, album) VALUES
-('Scream of the Butterfly', 'Acid Bath', 'When the Kite String Pops');
+('Scream of the Butterfly', 'Acid Bath', 'When the Kite String Pops'),
+('The Blue', 'Acid Bath', 'When the Kite String Pops'),
+('Jerry Was a Racecar Driver', 'Primus', 'Sailing In The Seas Of Cheese');
 
 SELECT * FROM musica;
 
 INSERT INTO repertorio (fk_usuario, fk_musica, instrumento) VALUES
-(1, 1, 'Baixo');
+(1, 1, 'Baixo'),
+(1, 1, 'Guitarra'),
+(1, 2, 'Guitarra'),
+(1, 3, 'Baixo');
 
+
+-- Mostrar o repertório do nome, instrumento e música
 SELECT nome,
 r.instrumento,
 m.titulo AS musica
@@ -70,3 +77,5 @@ JOIN repertorio as r
 ON r.fk_usuario = usuario.id
 JOIN musica AS m
 ON m.id = r.fk_musica;
+
+DELETE FROM usuario;

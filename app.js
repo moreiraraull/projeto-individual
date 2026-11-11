@@ -21,6 +21,8 @@ var avisosRouter = require("./src/routes/avisos");
 var medidasRouter = require("./src/routes/medidas");
 var repertorioRouter = require("./src/routes/repertorio");
 var empresasRouter = require("./src/routes/empresas");
+// Definindo a variável de route do spotify
+var spotifyRouter = require("./src/routes/spotify")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,6 +36,7 @@ app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter);
 app.use("/repertorio", repertorioRouter);
 app.use("/empresas", empresasRouter);
+app.use("/spotify", spotifyRouter); // API do Spotify
 
 app.listen(PORTA_APP, function () {
     console.log(`
