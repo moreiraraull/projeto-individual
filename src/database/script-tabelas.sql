@@ -54,19 +54,7 @@ SELECT * FROM usuario;
 
 -- DROP DATABASE noiseforge;
 
--- insert sem conectar no spotify
-INSERT INTO musica (titulo, artista, album) VALUES
-('Scream of the Butterfly', 'Acid Bath', 'When the Kite String Pops'),
-('The Blue', 'Acid Bath', 'When the Kite String Pops'),
-('Jerry Was a Racecar Driver', 'Primus', 'Sailing In The Seas Of       Cheese');
-
 SELECT * FROM musica;
-
-INSERT INTO repertorio (fk_usuario, fk_musica, instrumento) VALUES
-(1, 1, 'Baixo'),
-(1, 1, 'Guitarra'),
-(1, 2, 'Guitarra'),
-(1, 3, 'Baixo');
 
 
 -- Mostrar o repertório do nome, instrumento e música
@@ -78,3 +66,25 @@ JOIN repertorio as r
 ON r.fk_usuario = usuario.id
 JOIN musica AS m
 ON m.id = r.fk_musica;
+
+-- SELECT DO MODEL DE CARDS
+CREATE VIEW vw_repertorio_usuario AS
+SELECT 
+r.fk_usuario, -- Ver o id do usuário
+m.titulo,
+m.artista,
+m.album,
+m.capa_url,
+r.instrumento,
+r.progresso,
+r.id
+FROM repertorio as r
+JOIN musica AS m
+ON m.id = r.fk_musica;
+
+-- TESTANDO A VIEW (que está no model)
+SELECT *
+FROM vw_repertorio_usuario
+WHERE fk_usuario = 1;
+
+-- SELECTS DAS KPIs

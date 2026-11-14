@@ -20,7 +20,7 @@
         rel="stylesheet">
 </head>
 
-<body onload="validarSessao(), buscarRepertorioPorUsuario(),  atualizacaoPeriodica()">
+<body onload="validarSessao(), buscarRepertorioPorUsuario()">
 
     <div class="janela">
 
@@ -93,30 +93,61 @@
 <script>
 
     function buscarRepertorioPorUsuario() {
-        JSON.parse(sessionStorage.REPERTORIO).forEach(item => {
-            document.getElementById("cardRepertorio").innerHTML += `
-                    <div class="card-musica">
-                        <div class="capa-musica">
-                            <!-- o src vai pesquisar a capa pela url armazenada no banco de dados -->
-                            <img src="${item.capa_url}" alt="Capa da música" id="capa_musica_${item.id}">
-                        </div>
-                        <div class="info-musica">
-                            <div class="title-musica">
-                                <h1>${item.musica}</h1>
-                                <h2>${item.artista}</h2>
+    // Pega o ID do usuário logado
+    var idUsuario = sessionStorage.ID_USUARIO;
+
+    // Faz a requisição para a sua rota do Express (ajuste o caminho conforme o seu arquivo em src/routes/)
+    fetch(`/repertorio/${idUsuario}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(function (resposta) {
+        if (resposta.ok) {
+            // Se não houver músicas cadastradas (status 204), avisa na tela
+            if (resposta.status == 204) {
+                document.getElementById("cardRepertorio").innerHTML = "<p>Nenhuma música cadastrada no seu repertório ainda.</p>";
+                throw "Nenhum resultado encontrado!";
+            }
+
+            resposta.json().then(function (repertorio) {
+                console.log("Dados recebidos: ", JSON.stringify(repertorio));
+
+                var container = document.getElementById("cardRepertorio");
+                container.innerHTML = ""; // Limpa os cards antigos antes de renderizar
+
+                repertorio.forEach(item => {
+                    container.innerHTML += `
+                        <div class="card-musica">
+                            <div class="capa-musica">
+                                <img src="${item.capa_url}" alt="Capa da música" id="capa_musica_${item.id}">
                             </div>
-                            <div class="etiquetas-musica">
-                                <span>${item.instrumento}</span>
-                                <span>${item.progresso}</span>
+                            <div class="info-musica">
+                                <div class="title-musica">
+                                    <h1>${item.titulo}</h1>
+                                    <h2>${item.artista}</h2>
+                                </div>
+                                <div class="etiquetas-musica">
+                                    <span>${item.instrumento}</span>
+                                    <span>${item.progresso}</span>
+                                </div>
+                                <!-- Passa o ID da música específica para a função -->
+                                <button class="btn-musica" onclick="avancarNivel(${item.id})">Avançar para próximo nível</button>
                             </div>
-                                                <!-- Botão para aumentar o progresso -->
-                         <button class="btn-musica" id="progresso">Avançar para próximo nivel</button>
                         </div>
-                        
-                    </div>
-                    `
-        });
-    }
+                    `;
+                });
+            });
+        } else {
+            throw "Houve um erro na API ao buscar o repertório!";
+        }
+    })
+    .catch(function (erro) {
+        console.error(erro);
+    });
+    console.log(item.capa_url)
+}
 
 </script>
 
