@@ -133,6 +133,40 @@ body {
   overflow: auto;
 }
 
+.kpis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.3rem;
+  width: 90%;
+  margin: 40px auto;
+}
+
+.card-kpi {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 25px 20px;
+  background-color: var(--cor-terciaria);
+  color: var(--cor-secundaria);
+  border: 2px solid var(--cor-detalhe);
+  border-radius: 12px;
+}
+
+.card-kpi h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.card-kpi span {
+  color: var(--cor-primaria);
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
 .area-parametros-alerta {
   /* border: 2px solid pink; */
   display: flex;

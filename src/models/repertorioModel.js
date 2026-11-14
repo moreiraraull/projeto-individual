@@ -53,7 +53,37 @@ function cadastrar(idUsuario, idSpotify, titulo, artista, urlCapa, progresso, in
     });
 }
 
+function buscarQtdAprender(idUsuario) {
+    var instrucaoSql = `SELECT COUNT(progresso) AS 'qtd_aprender'
+FROM repertorio
+WHERE progresso = 1 AND fk_usuario = ${idUsuario};`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarQtdAprendendo(idUsuario) {
+    var instrucaoSql = `SELECT COUNT(progresso) AS 'qtd_aprendendo'
+FROM repertorio
+WHERE progresso = 2 AND fk_usuario = ${idUsuario};`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarQtdDominado(idUsuario) {
+    var instrucaoSql = `SELECT COUNT(progresso) AS 'qtd_dominado'
+FROM repertorio
+WHERE progresso = 3 AND fk_usuario = ${idUsuario};`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarRepertorioPorUsuario,
-    cadastrar
+    cadastrar,
+    buscarQtdAprender,
+    buscarQtdAprendendo,
+    buscarQtdDominado
 };

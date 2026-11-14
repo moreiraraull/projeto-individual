@@ -88,3 +88,29 @@ FROM vw_repertorio_usuario
 WHERE fk_usuario = 1;
 
 -- SELECTS DAS KPIs
+-- PARA APRENDER
+SELECT 
+COUNT(progresso) AS 'qtd_aprender'
+FROM repertorio
+WHERE progresso = 1 AND
+fk_usuario = 1;
+
+-- APRENDENDO
+SELECT 
+COUNT(progresso) AS 'qtd_aprendendo'
+FROM repertorio
+WHERE progresso = 2 AND
+fk_usuario = 1;
+
+-- DOMINADO
+SELECT 
+COUNT(progresso) AS 'qtd_dominado'
+FROM repertorio
+WHERE progresso = 3 AND
+fk_usuario = 1;
+
+-- SELECT DA PROPORÇÃO DE INSTRUMENTOS
+SELECT
+COUNT(instrumento)
+FROM repertorio;
+

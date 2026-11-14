@@ -54,7 +54,61 @@ function cadastrar(req, res) {
     }
 }
 
+function buscarQtdAprender(req, res) {
+    var idUsuario = Number(req.params.idUsuario);
+
+    if (isNaN(idUsuario) || idUsuario <= 0 || idUsuario % 1 != 0) {
+        res.status(400).send("O idUsuario deve ser um número inteiro positivo!");
+    } else {
+        repertorioModel.buscarQtdAprender(idUsuario)
+            .then(function (resultado) {
+                res.status(200).json(resultado);
+            })
+            .catch(function (erro) {
+                console.log("Houve um erro ao buscar a quantidade para aprender: ", erro.sqlMessage);
+                res.status(500).json("Erro ao buscar a quantidade para aprender.");
+            });
+    }
+}
+
+function buscarQtdAprendendo(req, res) {
+    var idUsuario = Number(req.params.idUsuario);
+
+    if (isNaN(idUsuario) || idUsuario <= 0 || idUsuario % 1 != 0) {
+        res.status(400).send("O idUsuario deve ser um número inteiro positivo!");
+    } else {
+        repertorioModel.buscarQtdAprendendo(idUsuario)
+            .then(function (resultado) {
+                res.status(200).json(resultado);
+            })
+            .catch(function (erro) {
+                console.log("Houve um erro ao buscar a quantidade aprendendo: ", erro.sqlMessage);
+                res.status(500).json("Erro ao buscar a quantidade aprendendo.");
+            });
+    }
+}
+
+function buscarQtdDominado(req, res) {
+    var idUsuario = Number(req.params.idUsuario);
+
+    if (isNaN(idUsuario) || idUsuario <= 0 || idUsuario % 1 != 0) {
+        res.status(400).send("O idUsuario deve ser um número inteiro positivo!");
+    } else {
+        repertorioModel.buscarQtdDominado(idUsuario)
+            .then(function (resultado) {
+                res.status(200).json(resultado);
+            })
+            .catch(function (erro) {
+                console.log("Houve um erro ao buscar a quantidade dominada: ", erro.sqlMessage);
+                res.status(500).json("Erro ao buscar a quantidade dominada.");
+            });
+    }
+}
+
 module.exports = {
     buscarRepertorioPorUsuario,
-    cadastrar
+    cadastrar,
+    buscarQtdAprender,
+    buscarQtdAprendendo,
+    buscarQtdDominado
 };

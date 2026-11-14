@@ -68,25 +68,94 @@
             <div id="alerta">
             </div>
 
+            <div class="kpis" aria-live="polite">
+                <div class="card-kpi">
+                    <h3>Para Aprender</h3>
+                    <span id="kpi_aprender">...</span>
+                </div>
+
+                <div class="card-kpi">
+                    <h3>Aprendendo</h3>
+                    <span id="kpi_aprendendo">...</span>
+                </div>
+
+                <div class="card-kpi">
+                    <h3>Dominado</h3>
+                    <span id="kpi_dominado">...</span>
+                </div>
+            </div>
+
             <div class="btns-dash" id="btnAquario">
-                <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
             </div>
             <div id="graficos">
             </div>
         </div>
     </div>
 
-
 </body>
 
 </html>
 
 <script>
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
     let proximaAtualizacao;
 
-    window.onload = exibirAquariosDoUsuario();
+    window.onload = iniciarDashboard;
+
+    function iniciarDashboard() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        if (!idUsuario || !sessionStorage.EMAIL_USUARIO || !sessionStorage.NOME_USUARIO) {
+            window.location = "../login.html";
+            return;
+        }
+
+        validarSessao();
+        atualizarKpis(idUsuario);
+    }
+
+    function atualizarKpis(idUsuario) {
+        buscarKpi(
+            `/repertorio/kpis/para-aprender/${idUsuario}`,
+            "kpi_aprender",
+            "qtd_aprender"
+        );
+
+        buscarKpi(
+            `/repertorio/kpis/aprendendo/${idUsuario}`,
+            "kpi_aprendendo",
+            "qtd_aprendendo"
+        );
+
+        buscarKpi(
+            `/repertorio/kpis/dominado/${idUsuario}`,
+            "kpi_dominado",
+            "qtd_dominado"
+        );
+    }
+
+    function buscarKpi(url, idElemento, campoQuantidade) {
+        var elemento = document.getElementById(idElemento);
+        elemento.innerHTML = "...";
+
+        fetch(url, {
+            method: "GET",
+            cache: "no-store"
+        })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                return resposta.json();
+            }
+
+            throw "Houve um erro ao buscar a KPI!";
+        })
+        .then(function (dados) {
+            elemento.innerHTML = dados[0][campoQuantidade];
+        })
+        .catch(function (erro) {
+            console.error("Erro ao carregar " + idElemento + ":", erro);
+            elemento.innerHTML = "Erro";
+        });
+    }
 
     function exibirAquariosDoUsuario() {
         var aquarios = JSON.parse(sessionStorage.AQUARIOS);
