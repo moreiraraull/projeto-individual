@@ -109,8 +109,19 @@ FROM repertorio
 WHERE progresso = 3 AND
 fk_usuario = 1;
 
--- SELECT DA PROPORÇÃO DE INSTRUMENTOS
+-- SELECT QUANTIDADE DE MÚSICAS POR INSTRUMENTO
 SELECT
-COUNT(instrumento)
-FROM repertorio;
+instrumento,
+COUNT(fk_musica) AS 'qtd_musicas'
+FROM repertorio
+WHERE fk_usuario = 1
+GROUP BY instrumento;
 
+-- SELECT TEMPO PARA APRENDER AS MÚSICAS
+SELECT fk_musica,
+data_inserido,
+data_atualizacao,
+TIMESTAMPDIFF(HOUR, data_atualizacao, data_inserido) AS tempo_aprender
+FROM repertorio
+WHERE fk_usuario = 1
+AND data_inserido <> data_atualizacao; -- Músicas que não acabaram de ser inseridas

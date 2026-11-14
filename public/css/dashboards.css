@@ -117,6 +117,11 @@ body {
   margin-left: 30px;
 }
 
+.titulo-dash {
+  color: var(--cor-secundaria);
+  margin-left: 4.8rem;
+}
+
 /* pagina graficos */
 
 .dash-header {
@@ -149,7 +154,6 @@ body {
   justify-content: center;
   gap: 15px;
   padding: 25px 20px;
-  background-color: var(--cor-terciaria);
   color: var(--cor-secundaria);
   border: 2px solid var(--cor-detalhe);
   border-radius: 12px;
@@ -162,9 +166,24 @@ body {
 }
 
 .card-kpi span {
-  color: var(--cor-primaria);
   font-size: 2.5rem;
   font-weight: 800;
+}
+
+.kpi1{
+  background-color: var(--cor-primaria);
+}
+
+.kpi2{
+  background-color: var(--cor-detalhe);
+}
+#graficos{
+  margin-left: 4.8rem;
+}
+
+#grafico-instrumentos {
+  height: 300px;
+  width: 300px;
 }
 
 .area-parametros-alerta {

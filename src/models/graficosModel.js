@@ -1,14 +1,13 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idAquario, limite_linhas) {
+function buscarInstrumentos(idUsuario) {
 
-    var instrucaoSql = `SELECT 
-                        temperatura,
-                        momento,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico
-                    FROM medida
-                    WHERE fk_aquario = ${idAquario}
-                    ORDER BY id DESC LIMIT ${limite_linhas}`;
+    var instrucaoSql = `SELECT
+                        instrumento,
+                        COUNT(fk_musica) AS 'qtd_musicas'
+                        FROM repertorio
+                        WHERE fk_usuario = ${idUsuario}
+                        GROUP BY instrumento;`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -28,6 +27,6 @@ function buscarMedidasEmTempoReal(idAquario) {
 }
 
 module.exports = {
-    buscarUltimasMedidas,
+    buscarInstrumentos,
     buscarMedidasEmTempoReal
 }

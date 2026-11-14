@@ -1,14 +1,12 @@
-var medidaModel = require("../models/medidaModel");
+var medidaModel = require("../models/graficosModel");
 
-function buscarUltimasMedidas(req, res) {
+function buscarInstrumentos(req, res) {
 
-    const limite_linhas = 7;
+    var idUsuario = req.params.idUsuario;
 
-    var idAquario = req.params.idAquario;
+    console.log(`Recuperando a quantidade de músicas por instrumento`);
 
-    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
-
-    medidaModel.buscarUltimasMedidas(idAquario, limite_linhas).then(function (resultado) {
+    medidaModel.buscarInstrumentos(idUsuario).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -24,11 +22,11 @@ function buscarUltimasMedidas(req, res) {
 
 function buscarMedidasEmTempoReal(req, res) {
 
-    var idAquario = req.params.idAquario;
+    var idUsuario = req.params.idUsuario;
 
     console.log(`Recuperando medidas em tempo real`);
 
-    medidaModel.buscarMedidasEmTempoReal(idAquario).then(function (resultado) {
+    medidaModel.buscarMedidasEmTempoReal(idUsuario).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -42,7 +40,7 @@ function buscarMedidasEmTempoReal(req, res) {
 }
 
 module.exports = {
-    buscarUltimasMedidas,
+    buscarInstrumentos,
     buscarMedidasEmTempoReal
 
 }
