@@ -24,22 +24,25 @@ function buscarRepertorioPorUsuario(req, res) {
 }
 
 function cadastrar(req, res) {
-    // Variáveis que virão do front-end (fetch)
-    var instrumento = req.body.instrumentoServer;
-    var idUsuario = req.body.idUsuarioServer;
-    var idMusica = req.body.idMusicaServer; 
-    var progresso = req.body.progressoServer;
+    // Variaveis que virão do front-end
+    var idUsuario = req.body.idUsuario;
+    var idSpotify = req.body.idSpotify; 
+    var titulo = req.body.titulo;
+    var artista = req.body.artista;
+    var urlCapa = req.body.urlCapa;
+    var progresso = req.body.progresso;
+    var instrumento = req.body.instrumento;
+    var album = req.body.album;
 
-    // Validações de regra de negócio
+    // Validações para ver se está tudo preenchido
     if (instrumento == undefined) {
         res.status(400).send("O instrumento está undefined!");
     } else if (idUsuario == undefined) {
         res.status(400).send("O idUsuario está undefined!");
-    } else if (idMusica == undefined) {
-        res.status(400).send("O idMusica está undefined!");
+    } else if (idSpotify == undefined) {
+        res.status(400).send("O idSpotify está undefined!");
     } else {
-        // Chamando o model passando os parâmetros corretos da sua tabela
-        repertorioModel.cadastrar(instrumento, idUsuario, idMusica, progresso)
+        repertorioModel.cadastrar(idUsuario, idSpotify, titulo, artista, urlCapa, progresso, instrumento, album)
             .then((resultado) => {
                 res.status(201).json(resultado);
             })

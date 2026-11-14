@@ -9,7 +9,7 @@ router.get("/:idUsuario", function (req, res) {
 
 // Para cadastrar uma música nova no repertorio do usuario
 router.post("/cadastrar", function (req, res) {
-  repertiruiController.cadastrar(req, res);
+  repertorioController.cadastrar(req, res);
 })
 
 module.exports = router;

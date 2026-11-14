@@ -19,7 +19,7 @@
         rel="stylesheet">
 </head>
 
-<body onload="validarSessao(), atualizarFeed()" style="background-color: #161618;">
+<body onload="validarSessao()" style="background-color: #161618;">
 
     <div class="janela">
 
@@ -61,7 +61,7 @@
                 <div class="container">
                     <h1>Cadastrar nova música</h1>
                     <div class="div-form">
-                        <form id="form_postagem" method="post" onsubmit="return publicar()">
+                        <form id="form_postagem">
                             <div class="container-busca">
                                 <label for="ipt_busca">
                                     Insira o nome da música:
@@ -74,21 +74,29 @@
                             <br>
                             <br>
                             <!-- Os inputs exibem os dados da música para o usuário -->
-                        <input type="text" id="ipt_id_spotify" disabled>
-                        <input type="text" id="ipt_titulo_musica" disabled>
-                        <input type="text" id="ipt_artista_musica" disabled>
-                        <input type="text" id="ipt_capa_musica" disabled>
+                        <input hidden type="text" id="ipt_id_spotify" disabled >
+                        <input hidden type="text" id="ipt_titulo_musica" disabled >
+                        <input hidden type="text" id="ipt_artista_musica" disabled >
+                        <input hidden type="text" id="ipt_capa_musica" disabled >
+                        <input hidden type="text" id="ipt_nome_album" disabled >
 
-                        <label style="color: #F5F5F5;">Música selecionada: <span                id="span_musica_selecionada" style="color: #D62872;">Nenhuma</span></label>
+                        <label style="color: #F5F5F5;">Música selecionada: <span id="span_musica_selecionada" style="color: #D62872;">Nenhuma</span></label>
                         <br><br>
+                        <label for="slct_instrumento">Selecione em qual instrumento você vai aprender a música</label>
                             <select name="slct_instrumento" id="slct_instrumento">
                                 <option>Guitarra</option>
                                 <option>Baixo</option>
                                 <option>Violão</option>
                                 <option>Piano</option>
                                 <option>Canto</option>
-                            </select>
-                            <button onclick="cadastrar()">Cadastrar</button>
+                            </select> <br>
+                            <label for="slct_progresso">Selecione qual seu nível de progresso com a música</label>
+                            <select name="slct_progresso" id="slct_progresso">
+                                <option value="1">Ainda não sei</option>
+                                <option value="2">Estou aprendendo</option>
+                                <option value="3">Já sei tocar</option>
+                            </select> <br>
+                            <button onclick="cadastrar()" type="button">Cadastrar</button>
                         </form>
                     </div>
                 </div>
@@ -124,7 +132,7 @@
         fetch("/spotify/pesquisar", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ termo: termo }) // Envia a busca do input no corpo 
+            body: JSON.stringify({ termo: termo }) // Envia a busca do input no corpo da requisição
         }).then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (dados) {
@@ -135,12 +143,13 @@
                     for (var i = 0; i < musicas.length; i++) {
                         var musica = musicas[i];
                         div_resultados.innerHTML += `
-                            <div onclick="selecionarMusica('${musica.id}', '${musica.name}', '${musica.artists[0].name}', '${musica.album.images[0].url}')" 
+                            <div onclick="selecionarMusica('${musica.id}', '${musica.name}', '${musica.artists[0].name}', '${musica.album.images[0].url}', '${musica.album.name}')" 
                                  style="border-bottom: 1px solid #333; padding: 10px 0; cursor: pointer; display: flex; gap: 10px;">
                                 <img src="${musica.album.images[0].url}" width="50">
                                 <div>
                                     <strong>${musica.name}</strong><br>
-                                    <small>${musica.artists[0].name}</small>
+                                    <small>${musica.artists[0].name}</small> <br>
+                                    <small>${musica.album.name}</small>
                                 </div>
                             </div>
                         `;
@@ -150,6 +159,54 @@
         });
     }
 
+    // Pega os dados da música que o usuário selecionou e coloca nos inputs
+    function selecionarMusica(id, titulo, artista, capa, album) {
+        document.getElementById("ipt_id_spotify").value = id;
+        document.getElementById("ipt_titulo_musica").value = titulo;
+        document.getElementById("ipt_artista_musica").value = artista;
+        document.getElementById("ipt_capa_musica").value = capa;
+        document.getElementById("ipt_nome_album").value = album;
+        document.getElementById("span_musica_selecionada").innerHTML = `${titulo} - ${artista}`;
+    }
+
+    function cadastrar() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        var idSpotify = document.getElementById("ipt_id_spotify").value;
+        var titulo = document.getElementById("ipt_titulo_musica").value;
+        var artista = document.getElementById("ipt_artista_musica").value;
+        var urlCapa = document.getElementById("ipt_capa_musica").value;
+        var instrumento = document.getElementById("slct_instrumento").value;
+        var progresso = document.getElementById("slct_progresso").value;
+        var album = document.getElementById("ipt_nome_album").value;
+
+        if (idSpotify == "") {
+            alert("Por favor, pesquise e selecione uma música do Spotify primeiro!");
+            return;
+        }
+
+        fetch("/repertorio/cadastrar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idUsuario,
+                idSpotify,
+                titulo,
+                artista,
+                urlCapa,
+                instrumento,
+                progresso,
+                album
+            })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                alert("Música adicionada ao seu repertório com sucesso!");
+                window.location = "cards.html"; // Redireciona para as músicas
+            } else {
+                alert("Erro ao cadastrar música.");
+            }
+        });
+    }
+        
     function publicar() {
         var idUsuario = sessionStorage.ID_USUARIO;
 

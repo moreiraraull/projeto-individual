@@ -30,7 +30,7 @@ CREATE TABLE repertorio (
     FOREIGN KEY (fk_musica) REFERENCES musica(id),
     PRIMARY KEY  (id, fk_usuario),
     instrumento VARCHAR(45),
-    progresso TINYINT,
+    progresso TINYINT DEFAULT 1,
     CONSTRAINT chkProgresso CHECK(progresso IN (1, 2, 3)),
     data_inserido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -54,10 +54,11 @@ SELECT * FROM usuario;
 
 -- DROP DATABASE noiseforge;
 
+-- insert sem conectar no spotify
 INSERT INTO musica (titulo, artista, album) VALUES
 ('Scream of the Butterfly', 'Acid Bath', 'When the Kite String Pops'),
 ('The Blue', 'Acid Bath', 'When the Kite String Pops'),
-('Jerry Was a Racecar Driver', 'Primus', 'Sailing In The Seas Of Cheese');
+('Jerry Was a Racecar Driver', 'Primus', 'Sailing In The Seas Of       Cheese');
 
 SELECT * FROM musica;
 
@@ -77,5 +78,3 @@ JOIN repertorio as r
 ON r.fk_usuario = usuario.id
 JOIN musica AS m
 ON m.id = r.fk_musica;
-
-DELETE FROM usuario;
