@@ -41,7 +41,20 @@ function cadastrar(req, res) {
         res.status(400).send("O idUsuario está undefined!");
     } else if (idSpotify == undefined) {
         res.status(400).send("O idSpotify está undefined!");
+    } else if (titulo == undefined) {
+        res.status(400).send("O titulo está undefined!");
+    } else if (artista == undefined) {
+        res.status(400).send("O artista está undefined!");
+    } else if (album == undefined) {
+        res.status(400).send("O album está undefined!");
     } else {
+        // No SQL, um apóstrofo (') fecha o texto. Então "Don't Stop Me Now" quebraria o INSERT.
+        // Para escrever um apóstrofo DENTRO de um texto no SQL, ele precisa ser escrito duas vezes ('').
+        // O replaceAll troca todos os ' por '' (ex: Don't -> Don''t), e o banco salva normalmente como "Don't".
+        titulo = titulo.replaceAll("'", "''");
+        artista = artista.replaceAll("'", "''");
+        album = album.replaceAll("'", "''");
+
         repertorioModel.cadastrar(idUsuario, idSpotify, titulo, artista, urlCapa, progresso, instrumento, album)
             .then((resultado) => {
                 res.status(201).json(resultado);

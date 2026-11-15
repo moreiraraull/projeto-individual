@@ -274,6 +274,7 @@ body {
 /* Ao passar o mouse, o card sobe um pouco */
 .card-musica:hover {
   top: -4px;
+  border: 2px solid var(--cor-primaria);
   transition: 0.3s;
 }
 
@@ -352,6 +353,15 @@ body {
   font-weight: normal;
   margin: 4px 0 0 0;
 }
+
+.cards h3 {
+  font-size: 0.7rem;
+  color: #A0A0A0;
+  text-align: left;
+  font-weight: normal;
+  margin: 4px 0 0 0;
+}
+
 
 .label-captura {
   height: 80px;

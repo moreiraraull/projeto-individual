@@ -118,6 +118,10 @@
     function limparFormulario() {
         document.getElementById("form_postagem").reset();
     }
+    // Guarda a lista de músicas que o Spotify devolveu na última busca.
+    // Fica FORA das funções para que a selecionarMusica() também consiga acessar.
+    var listaMusicas = [];
+
     // Busca a música no Spotify e exibe os resultados na tela
     function buscarMusica() {
         var termo = ipt_busca.value;
@@ -138,12 +142,16 @@
                 resposta.json().then(function (dados) {
                     div_resultados.innerHTML = ""; 
                     var musicas = dados.tracks.items;
+                    listaMusicas = musicas; // salva a lista para usar quando o usuário clicar em uma música
 
                     // enquanto houver músicas, vai preenchendo os cards
                     for (var i = 0; i < musicas.length; i++) {
                         var musica = musicas[i];
+                        // O onclick passa só a POSIÇÃO (i) da música na lista, e não o nome dela.
+                        // Se passasse o nome, músicas com apóstrofo (ex: Don't Stop Me Now) quebrariam o código,
+                        // porque o ' do nome fecharia o texto antes da hora.
                         div_resultados.innerHTML += `
-                            <div onclick="selecionarMusica('${musica.id}', '${musica.name}', '${musica.artists[0].name}', '${musica.album.images[0].url}', '${musica.album.name}')" 
+                            <div onclick="selecionarMusica(${i})"
                                  style="border-bottom: 1px solid #333; padding: 10px 0; cursor: pointer; display: flex; gap: 10px;">
                                 <img src="${musica.album.images[0].url}" width="50">
                                 <div>
@@ -160,13 +168,16 @@
     }
 
     // Pega os dados da música que o usuário selecionou e coloca nos inputs
-    function selecionarMusica(id, titulo, artista, capa, album) {
-        document.getElementById("ipt_id_spotify").value = id;
-        document.getElementById("ipt_titulo_musica").value = titulo;
-        document.getElementById("ipt_artista_musica").value = artista;
-        document.getElementById("ipt_capa_musica").value = capa;
-        document.getElementById("ipt_nome_album").value = album;
-        document.getElementById("span_musica_selecionada").innerHTML = `${titulo} - ${artista}`;
+    // Recebe a posição (i) da música e busca os dados dela na listaMusicas
+    function selecionarMusica(i) {
+        var musica = listaMusicas[i];
+
+        document.getElementById("ipt_id_spotify").value = musica.id;
+        document.getElementById("ipt_titulo_musica").value = musica.name;
+        document.getElementById("ipt_artista_musica").value = musica.artists[0].name;
+        document.getElementById("ipt_capa_musica").value = musica.album.images[0].url;
+        document.getElementById("ipt_nome_album").value = musica.album.name;
+        document.getElementById("span_musica_selecionada").innerHTML = `${musica.name} - ${musica.artists[0].name}`;
     }
 
     function cadastrar() {
