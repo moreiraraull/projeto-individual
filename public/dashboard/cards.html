@@ -58,27 +58,8 @@
             <h1 class="titulo-dash">Suas músicas:</h1>
         
             <div class="cards" id="cardRepertorio">
-                <!-- Placeholder do card -->
-                <div class="card-musica">
-                        <div class="capa-musica">
-                            <!-- o src vai pesquisar a capa pela url armazenada no banco de dados -->
-                            <img src="${item.capa_url}" alt="Capa da música" id="capa_musica_${item.id}">
-                        </div>
-                        <div class="info-musica">
-                            <div class="title-musica">
-                                <h1>${item.musica}</h1>
-                                <h2>${item.artista}</h2>
-                            </div>
-                            <div class="etiquetas-musica">
-                                <span>${item.instrumento}</span>
-                                <span>${item.progresso}</span>
-                            </div>
-                                                <!-- Botão para aumentar o progresso -->
-                         <button class="btn-musica" id="progresso">Avançar nivel</button>
-                        </div>
-                        
-                    </div>
-                    </div>
+                <!-- Os cards das músicas são criados pelo JavaScript (função buscarRepertorioPorUsuario) -->
+            </div>
                     <a href="pesquisa.html" class="btn-adicionar">
                         <img src="../assets/icon/plus.svg" class="icon">
                         Adicionar Música
@@ -119,6 +100,28 @@
                 container.innerHTML = ""; // Limpa os cards antigos antes de renderizar
 
                 repertorio.forEach(item => {
+
+                    // Transforma o número do progresso (1, 2 ou 3) em texto
+                    // e define a classe que muda a cor da etiqueta (está no dashboards.css)
+                    var textoProgresso = "";
+                    var classeProgresso = "";
+                    if (item.progresso == 1) {
+                        textoProgresso = "Para aprender";
+                        classeProgresso = "nivel-1";
+                    } else if (item.progresso == 2) {
+                        textoProgresso = "Aprendendo";
+                        classeProgresso = "nivel-2";
+                    } else {
+                        textoProgresso = "Dominada";
+                        classeProgresso = "nivel-3";
+                    }
+
+                    // O botão só aparece se a música ainda não estiver dominada
+                    var botaoAvancar = "";
+                    if (item.progresso < 3) {
+                        botaoAvancar = `<button class="btn-musica" onclick="avancarNivel(${item.id})">Avançar nível</button>`;
+                    }
+
                     container.innerHTML += `
                         <div class="card-musica">
                             <div class="capa-musica">
@@ -131,10 +134,9 @@
                                 </div>
                                 <div class="etiquetas-musica">
                                     <span>${item.instrumento}</span>
-                                    <span>${item.progresso}</span>
+                                    <span class="${classeProgresso}">${textoProgresso}</span>
                                 </div>
-                                <!-- Passa o ID da música específica para a função -->
-                                <button class="btn-musica" onclick="avancarNivel(${item.id})">Avançar para próximo nível</button>
+                                ${botaoAvancar}
                             </div>
                         </div>
                     `;
@@ -147,8 +149,35 @@
     .catch(function (erro) {
         console.error(erro);
     });
-    console.log(item.capa_url)
 }
+
+    // Avança o nível de progresso da música (Para aprender -> Aprendendo -> Dominada)
+    function avancarNivel(idRepertorio) {
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        fetch(`/repertorio/avancar/${idRepertorio}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idUsuario: idUsuario
+            })
+        })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                // Busca o repertório de novo para redesenhar os cards já atualizados
+                buscarRepertorioPorUsuario();
+            } else {
+                resposta.text().then(function (texto) {
+                    console.error(texto);
+                });
+            }
+        })
+        .catch(function (erro) {
+            console.error(erro);
+        });
+    }
 
 </script>
 

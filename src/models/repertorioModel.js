@@ -80,10 +80,21 @@ WHERE progresso = 3 AND fk_usuario = ${idUsuario};`;
     return database.executar(instrucaoSql);
 }
 
+function avancarNivel(idRepertorio, idUsuario) {
+    // Soma +1 no progresso, mas só se ainda não estiver no nível 3 (Dominada)
+    // e só se a música for do usuário que está logado
+    var instrucaoSql = `UPDATE repertorio SET progresso = progresso + 1
+WHERE id = ${idRepertorio} AND fk_usuario = ${idUsuario} AND progresso < 3;`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarRepertorioPorUsuario,
     cadastrar,
     buscarQtdAprender,
     buscarQtdAprendendo,
-    buscarQtdDominado
+    buscarQtdDominado,
+    avancarNivel
 };

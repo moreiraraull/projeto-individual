@@ -105,10 +105,38 @@ function buscarQtdDominado(req, res) {
     }
 }
 
+function avancarNivel(req, res) {
+    var idRepertorio = Number(req.params.idRepertorio); // vem da URL
+    var idUsuario = Number(req.body.idUsuario); // vem do corpo da requisição
+
+    // Validações para ver se os ids são números inteiros positivos
+    if (isNaN(idRepertorio) || idRepertorio <= 0 || idRepertorio % 1 != 0) {
+        res.status(400).send("O idRepertorio deve ser um número inteiro positivo!");
+    } else if (isNaN(idUsuario) || idUsuario <= 0 || idUsuario % 1 != 0) {
+        res.status(400).send("O idUsuario deve ser um número inteiro positivo!");
+    } else {
+        repertorioModel.avancarNivel(idRepertorio, idUsuario)
+            .then(function (resultado) {
+                // affectedRows = quantas linhas o UPDATE alterou no banco
+                // Se for 0, a música já estava no nível 3 ou não pertence a esse usuário
+                if (resultado.affectedRows == 0) {
+                    res.status(400).send("Música já dominada ou não encontrada!");
+                } else {
+                    res.status(200).json(resultado);
+                }
+            })
+            .catch(function (erro) {
+                console.log("Houve um erro ao avançar o nível: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+}
+
 module.exports = {
     buscarRepertorioPorUsuario,
     cadastrar,
     buscarQtdAprender,
     buscarQtdAprendendo,
-    buscarQtdDominado
+    buscarQtdDominado,
+    avancarNivel
 };

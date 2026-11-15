@@ -7,8 +7,8 @@ USE noiseforge;
 CREATE TABLE usuario (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50)
+	email VARCHAR(50) NOT NULL UNIQUE,
+	senha VARCHAR(50) NOT NULL
 );
 
 -- Tabela música

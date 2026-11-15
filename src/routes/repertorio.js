@@ -24,4 +24,9 @@ router.post("/cadastrar", function (req, res) {
   repertorioController.cadastrar(req, res);
 })
 
+// Para avançar o nível de progresso de uma música (1 -> 2 -> 3)
+router.put("/avancar/:idRepertorio", function (req, res) {
+    repertorioController.avancarNivel(req, res);
+});
+
 module.exports = router;

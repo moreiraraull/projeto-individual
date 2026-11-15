@@ -251,59 +251,78 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: stretch; /* todos os cards da mesma linha ficam com a mesma altura */
+  gap: 24px;
   min-height: 450px;
   width: 100%;
-  align-items: flex-start;
   color: var(--cor-secundaria);
-  padding: 20px 0;
+  padding: 20px 0 120px 0;
 }
 
 .card-musica {
-  margin: 2%;
-  width: fit-content;
+  position: relative; /* para o hover poder mover para cima */
+  top: 0;
+  width: 13.75rem; /* largura fixa: todos os cards ficam do mesmo tamanho */
   display: flex;
-  flex-direction: row;
-  height: auto;
-  background-color: var(--cor-terciaria);
-  font-size: 20px;
+  flex-direction: column; /* capa em cima, informações embaixo */
+  background-color: #1A1A1A;
   border: 2px solid var(--cor-detalhe);
   border-radius: 12px;
-  gap: 1.3rem;
   overflow: hidden; /* Impede a imagem de vazar do card */
 }
 
+/* Ao passar o mouse, o card sobe um pouco */
+.card-musica:hover {
+  top: -4px;
+  transition: 0.3s;
+}
+
 .capa-musica img{
-  display: flex;
-  justify-content: flex-start;
-  height: 100%;
-  width: 9.3rem;
+  display: block;
+  width: 100%;
+  height: 13.75rem; /* mesma largura do card*/
   object-fit: cover; /* impede que a imagem seja distorcida */
 }
 
 .info-musica {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0.8rem;
+  flex: 1; /* ocupa o espaço que sobrar no card */
 }
 
 .etiquetas-musica {
-  border-radius: 6px;
-  padding: 4px;
   display: flex;
-  gap: 5px;
-}
-
-.card-musica h1 {
-  width: fit-content;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .card-musica span{
   margin: 0;
-  font-size: 18px;
-  font-weight: lighter;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: normal;
   text-align: left;
+  border-radius: 20px;
+  border: 1px solid #2A2A2A;
   background-color: #2A2A2A;
+}
+
+/* Cor da etiqueta de acordo com o nível de progresso */
+.etiquetas-musica .nivel-1 {
+  border: 1px solid #555555;
+}
+
+.etiquetas-musica .nivel-2 {
+  border: 1px solid #F25C9C;
+  color: #F25C9C;
+}
+
+.etiquetas-musica .nivel-3 {
+  border: 1px solid var(--cor-primaria);
+  background-color: var(--cor-primaria);
 }
 
 .desc-musica {
@@ -320,19 +339,18 @@ body {
 
 
 .cards h1 {
-  font-size: 1.37rem;
-  border-bottom: solid var(--cor-secundaria) 1px;
+  font-size: 1.1rem;
   text-align: left;
-  font-weight: lighter;
-  margin: 20px;
+  font-weight: bold;
+  margin: 0;
 }
 
 .cards h2 {
-  font-size: 1.2rem;
-  border-bottom: solid var(--cor-secundaria) 1px;
+  font-size: 0.95rem;
+  color: #A0A0A0;
   text-align: left;
-  font-weight: lighter;
-  margin: 20px;
+  font-weight: normal;
+  margin: 4px 0 0 0;
 }
 
 .label-captura {
@@ -452,21 +470,25 @@ canvas {
 }
 
 .btn-musica {
-  width: 98%;
+  width: 100%;
   color: var(--cor-secundaria);
   background-color: var(--cor-primaria);
-  border-radius: 5px;
+  border-radius: 8px;
   text-align: center;
-  padding: 2% 5%;
+  padding: 10px;
   height: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 0;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-top: auto; /* empurra o botão para o fundo do card */
+}
 
-  margin-top: 0.2rem;
-  margin-bottom: 0.2rem;
+/* Ao passar o mouse, o botão muda para a cor detalhe */
+.btn-musica:hover {
+  background-color: var(--cor-detalhe);
 }
 
 .btn-adicionar {
@@ -481,12 +503,17 @@ canvas {
   justify-content: center;
   border: 0;
   font-size: 1.1rem;
-  gap: 15px; 
+  gap: 15px;
   cursor: pointer;
+  text-decoration: none; /* tira o sublinhado do link */
   position: fixed;
   bottom: 40px;
   right: 40px;
   z-index: 100; /* Garante que o botão fique sempre por cima das músicas ao rolar a página */
+}
+
+.btn-adicionar:hover {
+  background-color: var(--cor-detalhe);
 }
 
 .container-busca {
